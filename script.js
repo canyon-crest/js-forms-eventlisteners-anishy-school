@@ -28,7 +28,12 @@
 //            using .innerHTML
 //
 //         Example: "hello" → "HELLO!"
-
+let btn = document.getElementById("btnShout");
+btn.addEventListener("click", () => {
+let text = shoutInput.value;
+text = text.toUpperCase() + "!";
+outShout.innerHTML = text;
+});
 
 // ============================================
 //  MAIN: Pizza Builder
@@ -73,8 +78,40 @@
 //      Use .toFixed(2) to format the total.
 //      Example: "Alice, your total is $13.50"
 //      If name is empty, use "Customer" as the default.
-
-
+let calcTotal = document.getElementById("btnCalc");
+calcTotal.addEventListener("click", () => {
+    const sizes = document.getElementsByName("rg");
+    let value = 0;
+    for (let i = 0; i < sizes.length; i++){
+        if (sizes[i].checked){
+            value = parseFloat(sizes[i].value);
+        }
+    }
+    const toppings = document.getElementsByName("cb");
+    let topCount = 0;
+    for (let i = 0; i < toppings.length; i++){
+        if (toppings[i].checked) {
+            topCount += 1;
+        }
+    }
+    topCount = topCount * 0.5;
+    let serviceType = document.getElementById("serviceSelect").value;
+    let serviceFee = 0;
+    if (serviceType == "dinein") {
+        serviceFee = 0;
+    } else if (serviceType == "takeout") {
+        serviceFee = 1.50;
+    } else if (serviceType == "delivery") {
+        serviceFee = 3.00;
+    }
+    total = value + topCount + serviceFee;
+    let name = document.getElementById("myInput").value;
+    if (name != "") {
+        myPara.innerHTML = name + ", your total is $" + total.toFixed(2);
+    } else {
+        myPara.innerHTML = "Customer, your total is $" + total.toFixed(2);
+    }
+});
 // STEP 4: Get the "Clear" button by ID ("clearBtn")
 //         Add a click event listener.
 //         Inside the listener:
@@ -83,3 +120,14 @@
 //         c) Uncheck ALL topping checkboxes (loop through them)
 //         d) Set the service dropdown value to "dinein"
 //         e) Set the output paragraph innerHTML to ""
+let clear = document.getElementById("clearBtn");
+clear.addEventListener("click", () => {
+    document.getElementById("myInput").innerHTML = "";
+    document.getElementById("r3").checked = true;
+    const toppings = document.getElementsByName("cb");
+    for (let i = 0; i < toppings.length; i++){
+        toppings[i].checked = false;
+    }
+    document.getElementById("serviceSelect").value = "dinein";
+    myPara.innerHTML = "";
+});
