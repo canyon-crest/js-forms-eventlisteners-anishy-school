@@ -122,7 +122,7 @@ calcTotal.addEventListener("click", () => {
 //         e) Set the output paragraph innerHTML to ""
 let clear = document.getElementById("clearBtn");
 clear.addEventListener("click", () => {
-    document.getElementById("myInput").innerHTML = "";
+    document.getElementById("myInput").value = "";
     document.getElementById("r3").checked = true;
     const toppings = document.getElementsByName("cb");
     for (let i = 0; i < toppings.length; i++){
